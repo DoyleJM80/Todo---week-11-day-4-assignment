@@ -49,20 +49,20 @@ class TodoList extends Component {
     todos = todos.map((todo, index) => {
       console.log(todo);
       return (<div key={index}>
-        <span><li>{todo.todo}<input onChange={() => this.props.toggleTodo(todo)} type="checkbox"/><input onClick={() => this.props.removeTodo(todo)} type="button" value="remove"/></li></span>
+        <span><li>{todo.todo}<input onChange={() => this.props.toggleTodo(todo)} type="checkbox" checked={todo.completed}/><input onClick={() => this.props.removeTodo(todo)} className="button" type="button" value="remove"/></li></span>
 
       </div>)
     })
     return(
-      <div>
+      <div className="container">
         <form onSubmit={this.addTodo}>
           <input onChange={this.handleChange} name="todo" type="text" placeholder="add todo"/>
-          <input type="submit"/>
+          <input className="button" type="submit"/>
         </form>
         <div className="">
-          <label><input type="radio" onChange={this.handleFilter} name="filter" value="show all"/>Show all</label>
-          <label><input type="radio" onChange={this.handleFilter} name="filter" value="show uncompleted"/>Show uncompleted</label>
-          <label><input type="radio" onChange={this.handleFilter} name="filter" value="show completed"/>Show completed</label>
+          <label><input type="radio" onChange={this.handleFilter} name="filter" value="show all" checked={this.state.filter === 'show all'}/>Show all</label>
+          <label><input type="radio" onChange={this.handleFilter} name="filter" value="show uncompleted" checked={this.state.filter === 'show uncompleted'}/>Show uncompleted</label>
+          <label><input type="radio" onChange={this.handleFilter} name="filter" value="show completed" checked={this.state.filter === 'show completed'}/>Show completed</label>
         </div>
         <ul>
           {todos}
