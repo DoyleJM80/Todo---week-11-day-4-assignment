@@ -4,3 +4,17 @@ export function addTodo(todo) {
     payload: todo
   };
 };
+
+export function removeTodo(todo) {
+  return {
+    type: 'REMOVE_TODO',
+    payload: todo
+  };
+};
+
+export function toggleTodo(todo) {
+  return {
+    type: 'TOGGLE_TODO',
+    payload: todo
+  };
+};

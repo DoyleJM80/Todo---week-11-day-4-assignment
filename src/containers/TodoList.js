@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {addTodo} from '../actions/index';
+import {addTodo, removeTodo, toggleTodo} from '../actions/index';
 import {bindActionCreators} from 'redux';
 import _ from 'lodash';
 
@@ -28,8 +28,10 @@ class TodoList extends Component {
 
   render() {
     let todos = this.props.todos.map((todo, index) => {
+      console.log(todo);
       return (<div key={index}>
-        <li>{todo.todo}</li>
+        <span><li>{todo.todo}<input onChange={() => this.props.toggleTodo(todo)} type="checkbox"/><input onClick={() => this.props.removeTodo(todo)} type="button" value="remove"/></li></span>
+
       </div>)
     })
     return(
@@ -55,7 +57,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    addTodo: addTodo
+    addTodo: addTodo,
+    removeTodo: removeTodo,
+    toggleTodo: toggleTodo
+
   }, dispatch);
 };
 
