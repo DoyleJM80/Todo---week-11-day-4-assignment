@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {addTodo, removeTodo, toggleTodo, filterTodo} from '../actions/index';
+import {addTodo, removeTodo, toggleTodo} from '../actions/index';
 import {bindActionCreators} from 'redux';
 import _ from 'lodash';
 
@@ -36,7 +36,17 @@ class TodoList extends Component {
 
   render() {
 
-    let todos = this.props.todos.map((todo, index) => {
+    let todos = this.props.todos.filter((todo) => {
+      if(todo.completed && this.state.filter === "show completed") {
+        return todo;
+      } else if (!todo.completed && this.state.filter === "show uncompleted") {
+        return todo
+      } else if (this.state.filter === "show all") {
+        return todo;
+      }
+    })
+
+    todos = todos.map((todo, index) => {
       console.log(todo);
       return (<div key={index}>
         <span><li>{todo.todo}<input onChange={() => this.props.toggleTodo(todo)} type="checkbox"/><input onClick={() => this.props.removeTodo(todo)} type="button" value="remove"/></li></span>
@@ -50,9 +60,9 @@ class TodoList extends Component {
           <input type="submit"/>
         </form>
         <div className="">
-          <label><input type="radio" onChange={this.handleFilter} value="show all"/>Show all</label>
-          <label><input type="radio" onChange={this.handleFilter} value="show uncompleted"/>Show uncompleted</label>
-          <label><input type="radio" onChange={this.handleFilter} value="show completed"/>Show completed</label>
+          <label><input type="radio" onChange={this.handleFilter} name="filter" value="show all"/>Show all</label>
+          <label><input type="radio" onChange={this.handleFilter} name="filter" value="show uncompleted"/>Show uncompleted</label>
+          <label><input type="radio" onChange={this.handleFilter} name="filter" value="show completed"/>Show completed</label>
         </div>
         <ul>
           {todos}
@@ -73,8 +83,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     addTodo: addTodo,
     removeTodo: removeTodo,
-    toggleTodo: toggleTodo,
-    filterTodo: filterTodo
+    toggleTodo: toggleTodo
 
   }, dispatch);
 };

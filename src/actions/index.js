@@ -18,10 +18,3 @@ export function toggleTodo(todo) {
     payload: todo
   };
 };
-
-export function filterTodo(filterType) {
-  return {
-    type: 'FILTER_TODO',
-    payload: filterType
-  };
-};
