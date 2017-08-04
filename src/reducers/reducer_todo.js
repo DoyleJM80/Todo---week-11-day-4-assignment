@@ -17,6 +17,5 @@ export default function(state = todos, action) {
       return state.map((todo) => (todo === action.payload) ? {...todo, completed: !todo.completed} : todo);
       break;
     default: return state;
-
   }
 }
